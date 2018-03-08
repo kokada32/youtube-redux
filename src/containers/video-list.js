@@ -20,11 +20,9 @@ class VideoList extends Component {
     
     render() {
         return (
-            <div>
-                <ul className="col-md-4 list-group">
-                    {this.renderVideos()}
-                </ul> 
-            </div>
+            <ul className="col-md-4 list-group">
+                {this.renderVideos()}
+            </ul> 
         );
     }
 }
