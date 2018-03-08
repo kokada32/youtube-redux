@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 class VideoDetail extends Component {
     render() {
         if(!this.props.video) {
-            return <div>Select a video</div>;
+            return <div></div>;
         }
         const id = this.props.video.id;
         const url = `https://www.youtube.com/embed/${id}`;
