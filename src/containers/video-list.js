@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import VideoListItem from '../containers/video-list-item';
 import { videoSelect } from '../actions';
+import { Link } from 'react-router-dom';
+import SearchBar from './search-bar';
 
 class VideoList extends Component {    
     renderVideos() {
@@ -11,8 +13,12 @@ class VideoList extends Component {
             const title = video.snippet.title;
 
             return (
-                <div onClick={() => this.props.videoSelect(video.id.videoId)} key={video.id.videoId}>
-                    <VideoListItem video={video} />
+                <div key={video.etag}>
+                    <Link 
+                        to={`/videos/${video.id.videoId}`} 
+                        onClick={() => this.props.videoSelect(video.id.videoId)} >
+                        <VideoListItem video={video}  />
+                    </Link>
                 </div>
             );
         });
@@ -20,9 +26,12 @@ class VideoList extends Component {
     
     render() {
         return (
-            <ul className="col-md-4 list-group">
-                {this.renderVideos()}
-            </ul> 
+            <div>
+                <SearchBar />
+                <ul className="col-md-4 list-group">
+                    {this.renderVideos()}
+                </ul> 
+            </div>
         );
     }
 }
