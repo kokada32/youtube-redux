@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import SearchBar from './search-bar';
 import VideoList from './video-list';
 
 class VideoDetail extends Component {
     render() {
-        if(!this.props.video) {
+        if(!this.props.location.state.video) {
             return <div></div>;
         }
 
-        const id = this.props.video.id.videoId;
+        const id = this.props.location.state.video.id.videoId;
         const url = `https://www.youtube.com/embed/${id}`;
     
         return (
@@ -20,8 +19,8 @@ class VideoDetail extends Component {
                         <iframe className="embed-responsive-item" src={url}></iframe>
                     </div>
                     <div className="details">
-                        <div>{this.props.video.snippet.title}</div>
-                        <div>{this.props.video.snippet.description}</div>
+                        <div>{this.props.location.state.video.snippet.title}</div>
+                        <div>{this.props.location.state.video.snippet.description}</div>
                     </div>
                 </div>
             </div>
@@ -29,8 +28,8 @@ class VideoDetail extends Component {
     }
 }
 
-function mapStateToProps({ videos }, ownProps) {
-    return { video: videos[ownProps.match.params.videoId]};
-}
+// function mapStateToProps({ videos }, ownProps) {
+//     return { video: videos[ownProps.match.params.videoId]};
+// }
 
-export default connect(mapStateToProps)(VideoDetail);
+export default VideoDetail;

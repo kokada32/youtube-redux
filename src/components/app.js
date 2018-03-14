@@ -11,6 +11,7 @@ export default class App extends Component {
                 <Switch>
                     <Route path="/videos/:videoId" component={VideoDetail} />
                     <Route path="/videos" component={VideoList} />
+                    <Route path="/" component={SearchBar} />
                 </Switch>
             </BrowserRouter>
         );

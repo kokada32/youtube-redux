@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { videoSearch } from '../actions';
 
 class SearchBar extends Component {
@@ -21,7 +20,12 @@ class SearchBar extends Component {
     onFormSubmit(event) {
         event.preventDefault();
 
-        this.props.videoSearch(this.state.term);
+        this.props.history.push({
+            pathname: '/videos',
+            state: {
+                term: this.state.term
+            }
+        });
         this.setState({ term: ''});
     }
 
@@ -38,4 +42,4 @@ class SearchBar extends Component {
     }
 }
 
-export default connect(null, { videoSearch })(SearchBar);
+export default SearchBar;

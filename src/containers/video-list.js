@@ -2,11 +2,18 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import VideoListItem from '../containers/video-list-item';
-import { videoSelect } from '../actions';
+import { videoSearch } from '../actions';
 import { Link } from 'react-router-dom';
 import SearchBar from './search-bar';
 
 class VideoList extends Component {    
+    componentDidMount() {
+        if (this.props.location) {
+            const term = this.props.location.state.term;
+            this.props.videoSearch(term);  
+        }
+    }
+
     renderVideos() {
         return _.map(this.props.videos, video => {
             const imageUrl = video.snippet.thumbnails.default.url;
@@ -14,9 +21,10 @@ class VideoList extends Component {
 
             return (
                 <div key={video.etag}>
-                    <Link 
-                        to={`/videos/${video.id.videoId}`} 
-                        onClick={() => this.props.videoSelect(video.id.videoId)} >
+                    <Link to={{
+                        pathname: `/videos/${video.id.videoId}`,
+                        state: {video},
+                    }}>
                         <VideoListItem video={video}  />
                     </Link>
                 </div>
@@ -40,4 +48,4 @@ function mapStateToProps({ videos }) {
     return { videos };
 }
 
-export default connect(mapStateToProps, { videoSelect })(VideoList);
+export default connect(mapStateToProps, { videoSearch })(VideoList);
